@@ -8,7 +8,8 @@ public class client {
 	private Socket socket            = null; 
 	private DataInputStream  input   = null; 
 	private DataOutputStream out     = null; 
-
+        private boolean keepTalking=true;
+        
 	// constructor to put ip address and port 
 	public client(String address, int port) 
 	{ 
@@ -34,11 +35,11 @@ public class client {
 		} 
 
 		// string to read message from input 
-		String line = ""; 
 
 		// keep reading until "Over" is input 
-		while (!line.equals("Over")) 
+		while (keepTalking) 
 		{ 
+        		String line = ""; 
 			try
 			{ 
 				line = input.readLine(); 
@@ -50,7 +51,12 @@ public class client {
 			} 
 		} 
 
-		// close the connection 
+	}
+        
+        public void clientStopTalking()
+        {
+            keepTalking = false;
+            		// close the connection 
 		try
 		{ 
 			input.close(); 
@@ -61,5 +67,5 @@ public class client {
 		{ 
 			System.out.println(i); 
 		} 
-	}
+        }
 }
